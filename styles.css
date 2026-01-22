@@ -163,3 +163,21 @@ h2 {
 .ip-value-container {
     flex: 1;
 }
+
+.footer {
+    margin-top: 30px;
+    text-align: center;
+    color: #808080;
+    font-size: 0.9em;
+}
+
+.footer a {
+    color: #0077CC;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #0044CC;
+    text-decoration: underline;
+}
