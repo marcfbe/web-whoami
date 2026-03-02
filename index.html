@@ -27,6 +27,15 @@
             </div>
         </div>
         <div class="ip-section">
+            <div class="ip-label">CIDR /16</div>
+            <div class="ip-wrapper">
+                <div class="ip-value-container">
+                    <div class="ip-value loading" id="cidr16">Loading...</div>
+                </div>
+                <button class="copy-btn" onclick="copyToClipboard('cidr16', this)" title="Copy CIDR">Copy</button>
+            </div>
+        </div>
+        <div class="ip-section">
             <div class="ip-label">IPv6 Address</div>
             <div class="ip-wrapper">
                 <div class="ip-value-container">
@@ -67,6 +76,7 @@
         async function fetchIPs() {
             const ipv4Element = document.getElementById('ipv4');
             const ipv6Element = document.getElementById('ipv6');
+            const cidr16Element = document.getElementById('cidr16');
             const refreshBtn = document.getElementById('refreshBtn');
 
             refreshBtn.disabled = true;
@@ -76,20 +86,27 @@
             ipv4Element.className = 'ip-value loading';
             ipv6Element.textContent = 'Loading...';
             ipv6Element.className = 'ip-value loading';
+            cidr16Element.textContent = 'Loading...';
+            cidr16Element.className = 'ip-value loading';
 
             try {
                 const [ipv4, ipv6] = await Promise.all([fetchIPv4(), fetchIPv6()]);
 
+                const octets = ipv4?.split('.') ?? [];
+                const cidr16 = octets.length >= 2 ? `${octets[0]}.${octets[1]}.0.0/16` : 'Not available';
                 ipv4Element.textContent = ipv4 || 'Not available';
                 ipv4Element.className = 'ip-value';
-
                 ipv6Element.textContent = ipv6 || 'Not available';
                 ipv6Element.className = 'ip-value';
+                cidr16Element.textContent = cidr16 || 'Not available';
+                cidr16Element.className = 'ip-value';
             } catch (error) {
                 ipv4Element.textContent = 'Error fetching IPv4';
                 ipv4Element.className = 'ip-value error';
                 ipv6Element.textContent = 'Error fetching IPv6';
                 ipv6Element.className = 'ip-value error';
+                cidr16Element.textContent = 'Error fetching CIDR /16';
+                cidr16Element.className = 'ip-value error';
             } finally {
                 refreshBtn.disabled = false;
                 refreshBtn.textContent = 'Refresh';
