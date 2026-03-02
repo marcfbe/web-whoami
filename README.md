@@ -2,6 +2,10 @@
 
 A simple web application that displays your public IPv4 and IPv6 addresses. Useful for quickly checking your current IP address.
 
+https://whoami.marcf.be
+
+![Whoami Screenshot](assets/whoami.png)
+
 ## Deployment
 
 This site is hosted on GitHub Pages at [whoami.marcf.be](https://whoami.marcf.be).
